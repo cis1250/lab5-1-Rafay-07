@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 # Word Frequency Exercise (Modular Version)
 # TODO: (Read detailed instructions in the Readme file)
 # The program now uses functions for modularity and reusability.
@@ -10,22 +9,26 @@
 
 import re
 
-# making the function to check if the input is a valid sentence
+# making a function that checks if the user's input is a proper sentence
 def is_sentence(text):
-    # Checking if the text isn't empty and is a string
+    # checking if the text is actually a string and not empty
     if not isinstance(text, str) or not text.strip():
-        return False
-    # Checking for starting with a capital letter
-    if not text[0].isupper():
-        return False
-    # Checking for ending punctuation (period, question mark, exclamation)
-    if not re.search(r'[.!?]$', text):
-        return False
-    # Checking if it contains at least one word
-    if not re.search(r'\w+', text):
-        return False
-    return True
+        return False  # return False if it's not valid text
 
+    # checking if the first letter of the text is a capital letter
+    if not text[0].isupper():
+        return False  # return False if it doesn't start with a capital letter
+
+    # checking if the sentence ends with a period, question mark, or exclamation mark
+    if not re.search(r'[.!?]$', text):
+        return False  # return False if it doesn’t end with proper punctuation
+
+    # checking if the sentence has at least one word (not just spaces or symbols)
+    if not re.search(r'\w+', text):
+        return False  # return False if no words are found
+
+    # if all checks pass, then it's a valid sentence
+    return True
 
 # Function for asking and validating the user's sentence
 def get_valid_sentence():
@@ -38,7 +41,7 @@ def get_valid_sentence():
             print("This does not meet the criteria for a sentence.")  # tell the user it is invalid
 
 
-# Function for calculating the frequency of each word
+# Function for calculating the frequency of each word using variable "sentence"
 def calculate_word_frequency(sentence):
     # Convert sentence to lowercase so words are counted without case differences
     sentence = sentence.lower()
@@ -65,19 +68,25 @@ def calculate_word_frequency(sentence):
 
     return unique_words, frequencies  # returning both lists
 
-
 # Making a function for displaying the results neatly
 def display_frequencies(words, frequencies):
-    print("Word frequencies:")  # heading for the output
-    for i in range(len(words)):  # loop through both lists
-        print(words[i] + ":", frequencies[i])  # print the word and its count
+    # printing a heading to show what the following output means
+    print("Word frequencies:")
+    # using a for loop to go through each index in the list of words
+    for i in range(len(words)):
+        # printing each word followed by how many times it appeared
+        print(words[i] + ":", frequencies[i])
 
 # Making a main function to organize the program flow
 def main():
-    sentence = get_valid_sentence()  # get a valid sentence from the user
-    words, frequencies = calculate_word_frequency(sentence)  # calculate word counts
-    display_frequencies(words, frequencies)  # display the results
+    # calling the get_valid_sentence() function to ask the user for a proper sentence
+    sentence = get_valid_sentence()
+    
+    # calling calculate_word_frequency() to count how many times each word appears
+    words, frequencies = calculate_word_frequency(sentence)# this function gives back two lists: one with words and one with their counts
+    
+    # calling display_frequencies() to neatly print the results for the user
+    display_frequencies(words, frequencies)
 
-
-# calling the main function to start the program
+# calling the main function so the program actually runs
 main()
